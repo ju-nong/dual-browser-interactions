@@ -20,16 +20,17 @@ export default defineStore<"end", WindowStoreState, any, WindowStoreActions>(
 
                 this.open = open;
 
-                if (open) {
-                    this.$interval = setInterval(() => {
-                        const { screenX, screenY } = window;
-
-                        this.x = screenX;
-                        this.y = screenY;
-                    }, 300);
-                } else {
+                if (!open) {
                     clearInterval(this.$interval);
                 }
+            },
+            handleWindowMove(window) {
+                this.$interval = setInterval(() => {
+                    const { screenX, screenY } = window;
+
+                    this.x = screenX;
+                    this.y = screenY;
+                }, 300);
             },
             setPosition(x, y) {
                 this.x = x;

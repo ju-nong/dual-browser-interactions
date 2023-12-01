@@ -17,20 +17,17 @@ import { useStart, useEnd } from "../stores";
 import { storeToRefs } from "pinia";
 
 const startStore = useStart();
-const { open, x, y } = storeToRefs(startStore);
-
-const endStore = useEnd();
-const { open: endOpen, x: endX, y: endY } = storeToRefs(endStore);
+const { x, y } = storeToRefs(startStore);
 
 const $rotate = ref(0);
 
-function setRotate() {
-    console.log(x.value);
-    console.log(endX.value);
-}
-
 onMounted(() => {
     startStore.setOpen(true);
+    startStore.handleWindowMove(window);
+
+    window.addEventListener("message", function (event) {
+        console.log(event.data);
+    });
 });
 
 onUnmounted(() => {

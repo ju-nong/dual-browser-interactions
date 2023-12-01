@@ -13,14 +13,33 @@ import { reactive } from "vue";
 type windowType = "start" | "end";
 
 type windowRef = Record<windowType, null | Window>;
+type intervalRef = Record<windowType, null | number>;
 
 const $window = reactive<windowRef>({
     start: null,
     end: null,
 });
+const $interval = reactive<intervalRef>({
+    start: null,
+    end: null,
+});
+
+function getAnotherWindowPosition(type: windowType) {}
 
 function handleOpenWindow(type: windowType) {
     $window[type] = window.open(`/${type}`, type, "width=300,height=300");
+
+    $interval[type] = setInterval(() => {
+        const currentWindow = $window[type];
+
+        if (currentWindow === null || currentWindow.closed) {
+            clearInterval($interval[type] as number);
+
+            return;
+        }
+
+        currentWindow.postMessage("안녕", "*");
+    }, 300) as unknown as number;
 }
 </script>
 

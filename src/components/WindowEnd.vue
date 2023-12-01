@@ -16,12 +16,11 @@ import { onMounted, onUnmounted } from "vue";
 import { useStart, useEnd } from "../stores";
 import { storeToRefs } from "pinia";
 const endStore = useStart();
-const { open, x, y } = storeToRefs(endStore);
-
-const startStore = useEnd();
+const { x, y } = storeToRefs(endStore);
 
 onMounted(() => {
     endStore.setOpen(true);
+    endStore.handleWindowMove(window);
 });
 
 onUnmounted(() => {
