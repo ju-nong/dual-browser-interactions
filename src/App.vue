@@ -1,7 +1,36 @@
 <template>
-    <div>Hello World!</div>
+    <div>
+        <button @click="handleOpenWindow('start')">Window 1</button>
+        <br />
+        <br />
+        <button @click="handleOpenWindow('end')">Window 2</button>
+    </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { reactive } from "vue";
+
+type windowType = "start" | "end";
+
+type windowRef = Record<windowType, null | Window>;
+
+const $window = reactive<windowRef>({
+    start: null,
+    end: null,
+});
+
+function handleOpenWindow(type: windowType) {
+    $window[type] = window.open("", type, "width=400,height=300");
+}
+
+setTimeout(() => {
+    const { start, end } = $window;
+
+    if (start !== null && end !== null) {
+        console.log(start.screenX);
+        console.log(end.screenX);
+    }
+}, 4000);
+</script>
 
 <style lang="scss" scoped></style>
