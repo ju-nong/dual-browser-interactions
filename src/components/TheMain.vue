@@ -20,7 +20,7 @@ const $window = reactive<windowRef>({
 });
 
 function handleOpenWindow(type: windowType) {
-    $window[type] = window.open(`/${type}`, type, "width=400,height=300");
+    $window[type] = window.open(`/${type}`, type, "width=300,height=300");
 }
 </script>
 
