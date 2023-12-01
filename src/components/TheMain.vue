@@ -24,7 +24,19 @@ const $interval = reactive<intervalRef>({
     end: null,
 });
 
-function getAnotherWindowPosition(type: windowType) {}
+function getAnotherWindowPosition(currentType: windowType) {
+    if (currentType === "start" && $window.end !== null) {
+        const { screenX, screenY } = $window.end;
+
+        return { screenX, screenY };
+    } else if (currentType === "end" && $window.start !== null) {
+        const { screenX, screenY } = $window.start;
+
+        return { screenX, screenY };
+    }
+
+    return null;
+}
 
 function handleOpenWindow(type: windowType) {
     $window[type] = window.open(`/${type}`, type, "width=300,height=300");
@@ -38,7 +50,7 @@ function handleOpenWindow(type: windowType) {
             return;
         }
 
-        currentWindow.postMessage("안녕", "*");
+        currentWindow.postMessage(getAnotherWindowPosition(type), "*");
     }, 300) as unknown as number;
 }
 </script>
