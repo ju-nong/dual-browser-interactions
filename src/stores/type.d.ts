@@ -1,5 +1,6 @@
 type WindowStoreState = {
     open: boolean;
+    $interval: null | Timeout;
     x: number;
     y: number;
 };
