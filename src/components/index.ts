@@ -1,6 +1,5 @@
 import TheMain from "./TheMain.vue";
 
-import WindowStart from "./WindowStart.vue";
-import WindowEnd from "./WindowEnd.vue";
+import TheWindow from "./TheWindow.vue";
 
-export { TheMain, WindowStart, WindowEnd };
+export { TheMain, TheWindow };

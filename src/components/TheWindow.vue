@@ -26,8 +26,8 @@ type AnotherPos = {
     screenY: number;
 };
 
-const endStore = useWindow();
-const { x, y } = storeToRefs(endStore);
+const windowStore = useWindow();
+const { x, y } = storeToRefs(windowStore);
 
 const $rotate = ref(0);
 
@@ -35,6 +35,11 @@ const $another = reactive<AnotherPos>({
     screenX: -100,
     screenY: -100,
 });
+
+// const $windowSize = reactive({
+//     width: 300,
+//     height: 300,
+// });
 
 function setRotate({ screenX, screenY }: AnotherPos) {
     const deltaX = screenX - x.value;
@@ -50,8 +55,8 @@ function setRotate({ screenX, screenY }: AnotherPos) {
 }
 
 onMounted(() => {
-    endStore.setOpen(true);
-    endStore.handleWindowMove(window);
+    windowStore.setOpen(true);
+    windowStore.handleWindowMove(window);
 
     window.addEventListener("message", function (event) {
         const data = event.data as null | AnotherPos;
@@ -64,7 +69,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-    endStore.setOpen(false);
+    windowStore.setOpen(false);
 });
 </script>
 

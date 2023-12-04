@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import { TheMain, WindowStart, WindowEnd } from "../components";
+import { TheMain, TheWindow } from "../components";
 
 const routes: RouteRecordRaw[] = [
     {
@@ -10,12 +10,12 @@ const routes: RouteRecordRaw[] = [
     {
         path: "/start",
         name: "START",
-        component: WindowStart,
+        component: TheWindow,
     },
     {
         path: "/end",
         name: "END",
-        component: WindowEnd,
+        component: TheWindow,
     },
 ];
 
