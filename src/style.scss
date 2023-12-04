@@ -18,9 +18,19 @@ body,
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
 
     > img {
-        transition: all 0.3s;
+        width: 100px;
+        height: 100px;
         transform: rotate(var(--rotate));
+    }
+
+    .another {
+        position: absolute;
+        top: var(--top);
+        left: var(--left);
+        transform: translate(-50%, -50%) rotate(var(--rotate));
     }
 }
