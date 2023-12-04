@@ -1,11 +1,13 @@
 <template>
     <div class="container">
-        <!-- <img
+        <img
             src="/images/arrow.svg"
             alt=""
             class="another"
-            :style="`--rotate: ${$rotate + 180}deg`"
-        /> -->
+            :style="`--top: ${$another.screenY - y + 168.5}px; --left: ${
+                $another.screenX - x + 150
+            }px; --rotate: ${$rotate + 180}deg`"
+        />
         <img
             src="/images/arrow.svg"
             alt=""
@@ -15,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useWindow } from "../stores";
 import { storeToRefs } from "pinia";
 
@@ -29,6 +31,16 @@ const { x, y } = storeToRefs(startStore);
 
 const $rotate = ref(0);
 
+const $another = reactive<AnotherPos>({
+    screenX: -100,
+    screenY: -100,
+});
+
+const $windowSize = reactive({
+    width: 300,
+    height: 300,
+});
+
 function setRotate({ screenX, screenY }: AnotherPos) {
     const deltaX = screenX - x.value;
     const deltaY = screenY - y.value;
@@ -37,6 +49,9 @@ function setRotate({ screenX, screenY }: AnotherPos) {
     const angleInDegrees = (angleInRadians * 180) / Math.PI;
 
     $rotate.value = angleInDegrees;
+
+    $another.screenX = screenX;
+    $another.screenY = screenY;
 }
 
 onMounted(() => {
