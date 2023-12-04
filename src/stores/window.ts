@@ -2,8 +2,8 @@ import { defineStore } from "pinia";
 
 import type { WindowStoreState, WindowStoreActions } from "./type";
 
-export default defineStore<"end", WindowStoreState, any, WindowStoreActions>(
-    "end",
+export default defineStore<"window", WindowStoreState, any, WindowStoreActions>(
+    "window",
     {
         state: () => ({
             open: false,
@@ -30,11 +30,7 @@ export default defineStore<"end", WindowStoreState, any, WindowStoreActions>(
 
                     this.x = screenX;
                     this.y = screenY;
-                }, 300);
-            },
-            setPosition(x, y) {
-                this.x = x;
-                this.y = y;
+                }, 100);
             },
         },
     },

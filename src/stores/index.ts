@@ -1,4 +1,3 @@
-import useStart from "./start";
-import useEnd from "./start";
+import useWindow from "./window";
 
-export { useStart, useEnd };
+export { useWindow };

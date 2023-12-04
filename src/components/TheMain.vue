@@ -51,7 +51,7 @@ function handleOpenWindow(type: windowType) {
         }
 
         currentWindow.postMessage(getAnotherWindowPosition(type), "*");
-    }, 300) as unknown as number;
+    }, 100) as unknown as number;
 }
 </script>
 

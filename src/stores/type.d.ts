@@ -8,7 +8,6 @@ type WindowStoreState = {
 type WindowStoreActions = {
     setOpen: (open: boolean) => void;
     handleWindowMove: (window: Window) => void;
-    setPosition: (x: number, y: number) => void;
 };
 
 export type { WindowStoreState, WindowStoreActions };
