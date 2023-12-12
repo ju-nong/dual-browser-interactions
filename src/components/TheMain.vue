@@ -9,7 +9,7 @@
         <br />
         © 2023
         <a
-            href="https://github.com/ju-nong/dual-browser-interactions"
+            href="https://github.com/ju-nong/dual-window-interactions"
             target="_blank"
             >ju-nong </a
         >. All rights reserved.
