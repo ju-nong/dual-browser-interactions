@@ -1,10 +1,19 @@
 <template>
     <div>
-        <button @click="handleOpenWindow('start')">Window 1</button>
-        <br />
-        <br />
-        <button @click="handleOpenWindow('end')">Window 2</button>
+        <button @click="handleOpenWindow('start')">화살표 1 열기</button>
+        <button @click="handleOpenWindow('end')">화살표 2 열기</button>
     </div>
+
+    <p>
+        <span> 렉가거나 끊기면 니 컴 or 브라우저 문제 ㅅㄱ </span>
+        <br />
+        © 2023
+        <a
+            href="https://github.com/ju-nong/dual-browser-interactions"
+            target="_blank"
+            >ju-nong </a
+        >. All rights reserved.
+    </p>
 </template>
 
 <script setup lang="ts">
@@ -55,4 +64,34 @@ function handleOpenWindow(type: windowType) {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+div {
+    display: flex;
+    column-gap: 2rem;
+
+    > button {
+        padding: 8px 16px;
+        border-radius: 0.5rem;
+        cursor: pointer;
+    }
+}
+
+p {
+    text-align: center;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    font-size: 0.75rem;
+    transform: translate(-50%);
+    white-space: nowrap;
+
+    > span {
+        color: #e1e1e1;
+        text-decoration: line-through;
+    }
+
+    > a {
+        text-decoration: underline;
+    }
+}
+</style>
