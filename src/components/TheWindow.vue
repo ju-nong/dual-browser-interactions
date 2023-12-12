@@ -4,54 +4,65 @@
             src="/images/arrow.svg"
             alt=""
             class="another"
-            :style="`--top: ${$another.screenY - y + 168.5}px; --left: ${
-                $another.screenX - x + 150
-            }px; --rotate: ${$rotate + 180}deg`"
+            :style="$anotherStyle"
         />
-        <img
-            src="/images/arrow.svg"
-            alt=""
-            :style="`--rotate: ${$rotate}deg`"
-        />
+        <img src="/images/arrow.svg" alt="" :style="$currentStyle" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
 import { useWindow } from "../stores";
 import { storeToRefs } from "pinia";
 
 type AnotherPos = {
     screenX: number;
     screenY: number;
+    innerWidth: number;
+    innerHeight: number;
 };
 
 const windowStore = useWindow();
-const { x, y } = storeToRefs(windowStore);
+const { x, y, width, height } = storeToRefs(windowStore);
 
-const $rotate = ref(0);
+const $currentRotate = computed(() => {
+    const { screenX, screenY, innerWidth, innerHeight } = $another;
 
-const $another = reactive<AnotherPos>({
-    screenX: -100,
-    screenY: -100,
-});
-
-// const $windowSize = reactive({
-//     width: 300,
-//     height: 300,
-// });
-
-function setRotate({ screenX, screenY }: AnotherPos) {
-    const deltaX = screenX - x.value;
-    const deltaY = screenY - y.value;
+    const deltaX = screenX + innerWidth / 2 - x.value - width.value / 2;
+    const deltaY = screenY + innerHeight / 2 - y.value - height.value / 2;
 
     const angleInRadians = Math.atan2(deltaY, deltaX);
     const angleInDegrees = (angleInRadians * 180) / Math.PI;
 
-    $rotate.value = angleInDegrees;
+    return angleInDegrees;
+});
+const $currentStyle = computed(() => {
+    return `
+        --rotate: ${$currentRotate.value}deg;
+    `;
+});
 
+const $another = reactive<AnotherPos>({
+    screenX: 0,
+    screenY: 0,
+    innerWidth: 300,
+    innerHeight: 300,
+});
+const $anotherStyle = computed(() => {
+    const { screenX, screenY, innerWidth, innerHeight } = $another;
+
+    return `
+        --top: ${screenY - y.value + innerHeight / 2}px;
+        --left: ${screenX - x.value + innerWidth / 2}px;
+        --rotate: ${$currentRotate.value + 180}deg;
+    `;
+});
+
+function setConfig({ screenX, screenY, innerWidth, innerHeight }: AnotherPos) {
     $another.screenX = screenX;
     $another.screenY = screenY;
+    $another.innerWidth = innerWidth;
+    $another.innerHeight = innerHeight;
 }
 
 onMounted(() => {
@@ -63,7 +74,7 @@ onMounted(() => {
 
         if (data !== null) {
             // 열린 창이 있을 때
-            setRotate(data);
+            setConfig(data);
         }
     });
 });

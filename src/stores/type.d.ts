@@ -3,6 +3,8 @@ type WindowStoreState = {
     $interval: null | Timeout;
     x: number;
     y: number;
+    width: number;
+    height: number;
 };
 
 type WindowStoreActions = {

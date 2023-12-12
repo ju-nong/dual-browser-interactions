@@ -10,6 +10,8 @@ export default defineStore<"window", WindowStoreState, any, WindowStoreActions>(
             $interval: null,
             x: 0,
             y: 0,
+            width: window.innerWidth,
+            height: window.innerHeight,
         }),
         getters: {},
         actions: {
@@ -26,11 +28,14 @@ export default defineStore<"window", WindowStoreState, any, WindowStoreActions>(
             },
             handleWindowMove(window) {
                 this.$interval = setInterval(() => {
-                    const { screenX, screenY } = window;
+                    const { screenX, screenY, innerWidth, innerHeight } =
+                        window;
 
                     this.x = screenX;
                     this.y = screenY;
-                }, 100);
+                    this.width = innerWidth;
+                    this.height = innerHeight;
+                }, 10);
             },
         },
     },

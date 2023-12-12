@@ -26,13 +26,13 @@ const $interval = reactive<intervalRef>({
 
 function getAnotherWindowPosition(currentType: windowType) {
     if (currentType === "start" && $window.end !== null) {
-        const { screenX, screenY } = $window.end;
+        const { screenX, screenY, innerWidth, innerHeight } = $window.end;
 
-        return { screenX, screenY };
+        return { screenX, screenY, innerWidth, innerHeight };
     } else if (currentType === "end" && $window.start !== null) {
-        const { screenX, screenY } = $window.start;
+        const { screenX, screenY, innerWidth, innerHeight } = $window.start;
 
-        return { screenX, screenY };
+        return { screenX, screenY, innerWidth, innerHeight };
     }
 
     return null;
@@ -51,7 +51,7 @@ function handleOpenWindow(type: windowType) {
         }
 
         currentWindow.postMessage(getAnotherWindowPosition(type), "*");
-    }, 100) as unknown as number;
+    }, 10) as unknown as number;
 }
 </script>
 
